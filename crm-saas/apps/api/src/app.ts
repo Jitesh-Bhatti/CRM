@@ -3,6 +3,8 @@ import cors from 'cors';
 import { errorHandler } from './errors/errorHandler';
 import { successResponse } from '@crm/utils/src/response';
 import authRoutes from './modules/auth/routes/routes.index';
+import userRoutes from './modules/users/routes';
+import crmRoutes from './modules/crm/routes';
 
 const app: Application = express();
 
@@ -18,6 +20,8 @@ app.get('/health', (req: Request, res: Response) => {
 
 // TODO: Mount modular routes here (e.g., app.use('/api/v1/auth', authRoutes))
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/crm', crmRoutes);
 
 // Global Error Handler (Must be the last middleware)
 app.use(errorHandler);
