@@ -1,21 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../services/user.service';
+import { ClientService } from '../services/client.service';
 import { successResponse } from '@crm/utils/src/response';
 import { ApiError } from '../../../errors/ApiError';
 
-export class UserController {
-  private service: UserService;
+export class ClientController {
+  private service: ClientService;
 
   constructor() {
-    this.service = new UserService();
+    this.service = new ClientService();
   }
 
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!req.user) throw new ApiError(401, 'Unauthorized');
       
-      const user = await this.service.createUser(req.user.organizationId, req.body);
-      res.status(201).json(successResponse(user, 'User invited successfully'));
+      const client = await this.service.createClient(req.user.organizationId, req.user.userId, req.body);
+      res.status(201).json(successResponse(client, 'Client created successfully'));
     } catch (error) {
       next(error);
     }
@@ -25,8 +25,8 @@ export class UserController {
     try {
       if (!req.user) throw new ApiError(401, 'Unauthorized');
 
-      const users = await this.service.getAllUsers(req.user.organizationId);
-      res.status(200).json(successResponse(users, 'Users retrieved successfully'));
+      const clients = await this.service.getAllClients(req.user.organizationId);
+      res.status(200).json(successResponse(clients, 'Clients retrieved successfully'));
     } catch (error) {
       next(error);
     }
@@ -36,9 +36,8 @@ export class UserController {
     try {
       if (!req.user) throw new ApiError(401, 'Unauthorized');
 
-      // Explicitly cast req.params.id to string for Express 5 typings
-      const user = await this.service.getUserById(req.params.id as string, req.user.organizationId);
-      res.status(200).json(successResponse(user, 'User retrieved successfully'));
+      const client = await this.service.getClientById(req.params.id as string, req.user.organizationId);
+      res.status(200).json(successResponse(client, 'Client retrieved successfully'));
     } catch (error) {
       next(error);
     }
@@ -48,9 +47,8 @@ export class UserController {
     try {
       if (!req.user) throw new ApiError(401, 'Unauthorized');
 
-      // Explicitly cast req.params.id to string
-      const user = await this.service.updateUser(req.params.id as string, req.user.organizationId, req.body);
-      res.status(200).json(successResponse(user, 'User updated successfully'));
+      const client = await this.service.updateClient(req.params.id as string, req.user.organizationId, req.body);
+      res.status(200).json(successResponse(client, 'Client updated successfully'));
     } catch (error) {
       next(error);
     }
@@ -60,8 +58,7 @@ export class UserController {
     try {
       if (!req.user) throw new ApiError(401, 'Unauthorized');
 
-      // Explicitly cast req.params.id to string
-      await this.service.deleteUser(req.params.id as string, req.user.organizationId);
+      await this.service.deleteClient(req.params.id as string, req.user.organizationId);
       res.status(204).send();
     } catch (error) {
       next(error);
