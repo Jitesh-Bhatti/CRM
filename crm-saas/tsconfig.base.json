@@ -2,9 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@crm/config": ["packages/config/src/index.ts"],
+      "@crm/database": ["packages/database/src/index.ts"],
+      "@crm/utils/*": ["packages/utils/*"],
+      "@crm/types": ["packages/types/src/index.ts"]
+    }
   }
 }
