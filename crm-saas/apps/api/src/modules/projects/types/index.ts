@@ -1,3 +1,4 @@
+// --- Project Types ---
 export type ProjectStatus = 'planning' | 'active' | 'completed' | 'on_hold';
 
 export interface Project {
@@ -22,10 +23,29 @@ export interface CreateProjectDTO {
   name: string;
   project_type?: string;
   description?: string;
-  start_date?: string; // YYYY-MM-DD
-  end_date?: string;   // YYYY-MM-DD
+  start_date?: string; 
+  end_date?: string;   
   status?: ProjectStatus;
   budget?: number;
 }
 
 export type UpdateProjectDTO = Partial<CreateProjectDTO>;
+
+// --- Project Member Types ---
+export interface ProjectMember {
+  id: string;
+  project_id: string;
+  user_id: string;
+  role_in_project: string | null;
+  assigned_at: Date;
+}
+
+export interface CreateProjectMemberDTO {
+  user_id: string;
+  role_in_project?: string;
+}
+
+// We only allow updating the role, not swapping the user
+export interface UpdateProjectMemberDTO {
+  role_in_project: string;
+}
