@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-// 1. FORCE EXACT MATCH WITH CAPITAL B
-import { Sidebar } from './SideBar'; 
+import { Sidebar } from './Sidebar';
+
 
 export const DashboardLayout: React.FC = () => {
   return (
@@ -12,6 +12,7 @@ export const DashboardLayout: React.FC = () => {
       {/* Main Content Area filling the rest of the screen */}
       <main className="flex-1 overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto h-full">
+          {/* Outlet is where the current page gets rendered! */}
           <Outlet />
         </div>
       </main>
