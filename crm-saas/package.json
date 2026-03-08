@@ -14,9 +14,14 @@
   "license": "ISC",
   "packageManager": "pnpm@10.30.3",
   "devDependencies": {
+    "@types/dotenv": "^8.2.3",
     "eslint": "^10.0.2",
     "prettier": "^3.8.1",
+    "tsconfig-paths": "^4.2.0",
     "turbo": "^2.8.13",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }
