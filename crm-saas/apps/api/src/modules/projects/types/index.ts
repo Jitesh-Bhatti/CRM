@@ -45,7 +45,70 @@ export interface CreateProjectMemberDTO {
   role_in_project?: string;
 }
 
-// We only allow updating the role, not swapping the user
 export interface UpdateProjectMemberDTO {
   role_in_project: string;
+}
+
+// --- Milestone Types ---
+export type MilestoneStatus = 'pending' | 'in_progress' | 'completed';
+export type ApprovalStatus = 'pending' | 'approved' | 'rejected';
+
+export interface Milestone {
+  id: string;
+  project_id: string;
+  title: string;
+  description: string | null;
+  deadline: Date | null;
+  status: MilestoneStatus;
+  approval_status: ApprovalStatus;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface CreateMilestoneDTO {
+  title: string;
+  description?: string;
+  deadline?: string; 
+  status?: MilestoneStatus;
+  approval_status?: ApprovalStatus;
+}
+
+export type UpdateMilestoneDTO = Partial<CreateMilestoneDTO>;
+
+// --- Project Requirement Types ---
+export interface ProjectRequirement {
+  id: string;
+  project_id: string;
+  requirement_text: string;
+  created_by: string;
+  created_at: Date;
+}
+
+export interface CreateProjectRequirementDTO {
+  requirement_text: string;
+}
+
+export type UpdateProjectRequirementDTO = Partial<CreateProjectRequirementDTO>;
+
+// --- Change Request Types ---
+export type ChangeRequestStatus = 'pending' | 'approved' | 'rejected';
+
+export interface ChangeRequest {
+  id: string;
+  project_id: string;
+  requested_by: string;
+  description: string;
+  status: ChangeRequestStatus;
+  approved_by: string | null;
+  created_at: Date;
+}
+
+export interface CreateChangeRequestDTO {
+  description: string;
+}
+
+export interface UpdateChangeRequestDTO {
+  description?: string;
+  status?: ChangeRequestStatus;
+  // Note: approved_by is omitted here because we handle it automatically in the Service layer
 }

@@ -6,6 +6,7 @@ import authRoutes from './modules/auth/routes/routes.index';
 import userRoutes from './modules/users/routes';
 import crmRoutes from './modules/crm/routes';
 import projectRoutes from './modules/projects/routes';
+import taskRoutes from './modules/tasks/routes';
 
 const app: Application = express();
 
@@ -24,6 +25,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/crm', crmRoutes);
 app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1/tasks', taskRoutes);
 
 // Global Error Handler (Must be the last middleware)
 app.use(errorHandler);
