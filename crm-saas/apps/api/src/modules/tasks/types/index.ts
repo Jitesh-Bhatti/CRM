@@ -45,3 +45,14 @@ export interface CreateTaskCommentDTO {
 export interface UpdateTaskCommentDTO {
   comment_text: string;
 }
+
+// --- Task Attachment Types ---
+export interface TaskAttachment {
+  id: string;
+  task_id: string;
+  file_id: string;
+}
+
+export interface CreateTaskAttachmentDTO {
+  file_id: string;
+}

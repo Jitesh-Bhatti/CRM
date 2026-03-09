@@ -1,14 +1,17 @@
 import { Router } from 'express';
 import { TaskController } from '../controllers/task.controller';
-import { TaskCommentController } from '../controllers/task-comment.controller'; // <-- Add Import
+import { TaskCommentController } from '../controllers/task-comment.controller';
+import { TaskAttachmentController } from '../controllers/task-attachment.controller'; // <-- Add Import
 import { validate } from '../../../middleware/validate.middleware'; 
 import { requireAuth } from '../../../middleware/auth.middleware';
 import { createTaskSchema, updateTaskSchema } from '../validators/task.validator';
-import { createTaskCommentSchema, updateTaskCommentSchema } from '../validators/task-comment.validator'; // <-- Add Import
+import { createTaskCommentSchema, updateTaskCommentSchema } from '../validators/task-comment.validator';
+import { createTaskAttachmentSchema } from '../validators/task-attachment.validator'; // <-- Add Import
 
 const router = Router();
 const taskController = new TaskController();
-const commentController = new TaskCommentController(); // <-- Init Controller
+const commentController = new TaskCommentController();
+const attachmentController = new TaskAttachmentController(); // <-- Init Controller
 
 // Protect all task routes
 router.use(requireAuth);
@@ -26,5 +29,10 @@ router.get('/:taskId/comments', commentController.getAll);
 router.get('/:taskId/comments/:id', commentController.getById);
 router.patch('/:taskId/comments/:id', validate(updateTaskCommentSchema), commentController.update);
 router.delete('/:taskId/comments/:id', commentController.delete);
+
+// --- Task Attachment Routes ---
+router.post('/:taskId/attachments', validate(createTaskAttachmentSchema), attachmentController.create);
+router.get('/:taskId/attachments', attachmentController.getAll);
+router.delete('/:taskId/attachments/:id', attachmentController.delete);
 
 export default router;
