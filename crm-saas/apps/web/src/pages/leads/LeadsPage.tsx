@@ -6,43 +6,32 @@ export const LeadsPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="flex flex-col gap-6 h-full w-full">
-      {/* Premium Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-4 border-b border-white/40">
+    <div className="flex flex-col gap-6 h-full">
+      {/* Header Section */}
+      <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-[28px] font-extrabold text-[#0f172a] tracking-tight flex items-center gap-3">
-            Leads Pipeline
-          </h2>
-          <p className="text-[#64748b] mt-1 text-[15px] max-w-2xl">
-            Track and move prospective clients through your sales funnel. Drag and drop cards to update their status instantly.
+          <h2 className="text-2xl font-bold text-gray-900">Leads Pipeline</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Track and move prospective clients through your sales funnel. Drag and drop cards to update their status.
           </p>
         </div>
         <button
-          onClick={() => setShowForm(true)}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#1e3a5f] to-[#1d4ed8] text-white text-sm font-semibold shadow-[0_4px_12px_rgba(29,78,216,0.3)] hover:shadow-[0_6px_16px_rgba(29,78,216,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+          onClick={() => setShowForm(!showForm)}
+          className="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium shadow-sm"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4"></path></svg>
-          New Lead
+          {showForm ? 'Close Form' : '+ New Lead'}
         </button>
       </div>
 
-      {/* Conditionally render the creation form in a Modal */}
+      {/* Conditionally render the creation form */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pb-20">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-[#0f172a]/40 backdrop-blur-[4px] transition-opacity" onClick={() => setShowForm(false)}></div>
-
-          {/* Modal Content */}
-          <div className="relative w-full max-w-2xl max-h-full overflow-y-auto rounded-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-            <CreateLeadForm onSuccess={() => setShowForm(false)} onCancel={() => setShowForm(false)} />
-          </div>
+        <div className="mb-2 transition-all">
+          <CreateLeadForm onSuccess={() => setShowForm(false)} />
         </div>
       )}
 
       {/* The Kanban Board */}
-      <div className="flex-1 min-h-0 bg-transparent">
-        <LeadKanbanBoard />
-      </div>
+      <LeadKanbanBoard />
     </div>
   );
 };
